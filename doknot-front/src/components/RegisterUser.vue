@@ -1,8 +1,8 @@
 <template>
 <div>
     <form class="regform">
-        <input placeholder='Username'/>
-        <input placeholder="Password" />
+        <input placeholder='Username' v-model="userNameInput"/>
+        <input placeholder="Password" v-model="passwordInput"/>
     </form>
 </div>
 </template>
@@ -10,6 +10,13 @@
 <script>
 export default {
    name:'RegisterUser',
+   data: ()=>({
+       userNameInput: '',
+       passwordInput: ''
+   }),
+   methods: {
+
+   },
    props: {} 
 }
 </script>
