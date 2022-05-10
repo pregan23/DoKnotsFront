@@ -1,5 +1,6 @@
 <template>
 <div>
+    <h3>Register Here</h3>
     <form class="regform">
         <input placeholder='Username' v-model="userNameInput"/>
         <input placeholder="Password" v-model="passwordInput"/>

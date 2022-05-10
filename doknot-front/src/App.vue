@@ -4,6 +4,8 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <RegisterUser />
+    <LoginUser />
+   
   </div>
 </template>
 
@@ -11,13 +13,18 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import RegisterUser from './components/RegisterUser.vue'
+import LoginUser from './components/LoginUser.vue'
 
 export default {
   name: 'App',
   components: {
     // HelloWorld,  
-    RegisterUser
-}
+    RegisterUser,
+    LoginUser
+},
+  data:()=>({
+    user: {}
+  })
 }
 </script>
 
