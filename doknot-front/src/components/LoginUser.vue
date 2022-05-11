@@ -25,15 +25,15 @@ export default {
            })
            console.log(res.data.user)
            localStorage.setItem("token", res.data.token)
-           localStorage.setItem("userName", res.data.user.userName)
-           localStorage.setItem("avatar", res.data.user.avatar)
+        //    if (localStorage.token) {this.isUser=true}
+        //    localStorage.setItem("userName", res.data.user.userName)
+        //    localStorage.setItem("avatar", res.data.user.avatar)
            this.userNameInput=''
            this.passwordInput=''
        } 
    },
    props: {
-    //    user: {
-    //    }
+    //    ['isUser']
    } 
 }
 </script>
