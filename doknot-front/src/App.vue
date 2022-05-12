@@ -27,7 +27,8 @@ export default {
     LoginUser
 },
   data:()=>({
-  
+    authenticated:false,
+    currentUserName:'',
   }),
   mounted() {
     const token = localStorage.getItem('token')
@@ -42,7 +43,11 @@ export default {
     
     const res = await Client.get(`/user/session`)
     console.log('token checked successfully')
-    return res.data  
+    console.log(res.data)
+    this.authenticated = true
+    this.currentUserName = res.data.userName
+    return res.data
+      
   } catch (error) {
     console.log('no token')
   }
