@@ -5,7 +5,7 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <RegisterUser />
     <LoginUser />
-    <button @click='checkSession()'>Check</button>
+    <button @click='checkSession'>Check</button>
    
   </div>
 </template>
@@ -15,7 +15,9 @@
 // import HelloWorld from './components/HelloWorld.vue'
 import RegisterUser from './components/RegisterUser.vue'
 import LoginUser from './components/LoginUser.vue'
-import axios from 'axios'
+// import axios from 'axios'
+import Client from './services/api'
+
 
 export default {
   name: 'App',
@@ -28,13 +30,17 @@ export default {
   
   }),
   mounted() {
+    const token = localStorage.getItem('token')
+    if(token) {
+      this.checkSession()
+    }
     // this.checkSession() 
   },
   methods: {
     async checkSession() {
        try {
     
-    const res = await axios.get('/user/session')
+    const res = await Client.get(`/user/session`)
     console.log('token checked successfully')
     return res.data  
   } catch (error) {

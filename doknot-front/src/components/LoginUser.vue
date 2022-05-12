@@ -11,6 +11,7 @@
 
 <script>
 import axios from 'axios'
+import { BASE_URL } from '@/services/api'
 export default {
    name:'LoginUser',
    data: ()=>({
@@ -19,11 +20,11 @@ export default {
    }),
    methods: {
        async loginUser() {
-           const res = await axios.post('http://localhost:3001/user/login',{
+           const res = await axios.post(`${BASE_URL}/user/login`,{
                "userName":this.userNameInput,
                "password":this.passwordInput
            })
-           console.log(res.data.user)
+           console.log(res.data.token)
            localStorage.setItem("token", res.data.token)
         //    if (localStorage.token) {this.isUser=true}
         //    localStorage.setItem("userName", res.data.user.userName)
