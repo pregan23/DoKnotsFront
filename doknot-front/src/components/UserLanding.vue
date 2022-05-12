@@ -1,6 +1,18 @@
 <template>
     <div>
-        <h1>Placeholder</h1>
+        <div v-if="doKnotsWithStreaks">
+            <h2>Here's what you've been working on lately</h2>
+            <div :key="doKnot.id" v-for="doKnot in doKnotsWithStreaks">
+                <h3>Have you been {{ doKnot.habit }}?</h3>
+                <h4>{{ doKnot.alternatives }}</h4>
+            </div>
+        </div>
+        <div v-if="userEntries">
+            <h2>Your Entries</h2>
+            <div :key="entry.id" v-for="entry in userEntries">
+                <h3>{{ entry.content }}</h3>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -21,15 +33,22 @@ export default {
             const res = await Client.get(`/doknot/${this.currentUserId}`)
             console.log(res.data)
             this.doKnotsWithStreaks = res.data
-            return this.doKnotsWithStreaks
         } catch (error) {
-    console.log('no token')
+    console.log('something is wrong')
+  }
+        },
+        async getUserEntries() {
+            try {
+                const res = await Client.get(`/entry/${this.currentUserId}`)
+                this.userEntries = res.data
+            } catch (error) {
+    console.log('something is wrong')
   }
         } 
     },
     mounted() {
         this.getDoKnotsWithStreaks()
-        // getUserEntries(),
+        this.getUserEntries()
         // getSharedStreaks(),
         // getSharedEntries()
     },
