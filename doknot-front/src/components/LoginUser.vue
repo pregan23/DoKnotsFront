@@ -10,17 +10,20 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { BASE_URL } from '@/services/api'
+
+import Client from "@/services/api"
 export default {
    name:'LoginUser',
    data: ()=>({
        userNameInput: '',
        passwordInput: ''
    }),
+//    mounted() {
+       
+//    },
    methods: {
        async loginUser() {
-           const res = await axios.post(`${BASE_URL}/user/login`,{
+           const res = await Client.post(`/user/login`,{
                "userName":this.userNameInput,
                "password":this.passwordInput
            })
@@ -29,12 +32,14 @@ export default {
         //    if (localStorage.token) {this.isUser=true}
         //    localStorage.setItem("userName", res.data.user.userName)
         //    localStorage.setItem("avatar", res.data.user.avatar)
+           this.$emit('checkSession');
            this.userNameInput=''
            this.passwordInput=''
+
        } 
    },
    props: {
-    //    ['isUser']
+    checkSession: { type: Function},
    } 
 }
 </script>

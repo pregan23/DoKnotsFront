@@ -1,12 +1,17 @@
 <template>
   <div id="app">
+    <div class="hastoken" v-if="authenticated">
+      <h1>Welcome In, Sheeeeeeeesh</h1>
+      <UserLanding :currentUserId="currentUserId"/>
+    </div>
+
+    <div class="notoken" v-else>
     <h1>Welcome. Log in or Register Below</h1>
     <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <RegisterUser />
-    <LoginUser />
-    <button @click='checkSession'>Check</button>
-   
+    <LoginUser @checkSession="checkSession"/>
+    </div>
   </div>
 </template>
 
@@ -15,8 +20,10 @@
 // import HelloWorld from './components/HelloWorld.vue'
 import RegisterUser from './components/RegisterUser.vue'
 import LoginUser from './components/LoginUser.vue'
+
 // import axios from 'axios'
 import Client from './services/api'
+import UserLanding from './components/UserLanding.vue'
 
 
 export default {
@@ -24,11 +31,13 @@ export default {
   components: {
     // HelloWorld,  
     RegisterUser,
-    LoginUser
+    LoginUser,
+    UserLanding
 },
   data:()=>({
     authenticated:false,
     currentUserName:'',
+    currentUserId:null
   }),
   mounted() {
     const token = localStorage.getItem('token')
@@ -46,6 +55,7 @@ export default {
     console.log(res.data)
     this.authenticated = true
     this.currentUserName = res.data.userName
+    this.currentUserId = res.data.id
     return res.data
       
   } catch (error) {
