@@ -8,6 +8,7 @@
             </div>
             <div :key="doKnot.id" v-for="doKnot in doKnotsWithStreaks">
                 <h3>Have you been {{ doKnot.habit }}?</h3>
+                <button @click="deleteDoKnot(doKnot.id)">Delete</button>
                 <!-- <h4>{{ doKnot.alternatives }}</h4> -->
                 <div  id="streak" :key="streak.id" v-for="streak in doKnot.Streaks">
                     <h3 v-if="streak.isActive">{{ streak.howLong }} Day Streak</h3>
@@ -108,12 +109,11 @@ export default {
     console.log('something is wrong')
   }
         },
-        // async newDoKnot() {
-        //     try {
-        //         let doKnotBody =
-        //         const res = await Client.post(`/doknot/${this.currentUserId}/new`, doKnotBody)
-        //     }
-        // }
+        async deleteDoKnot(doKnotId) {
+            const deleted = await Client.delete(`/doknot/${this.currentUserId}/delete/${doKnotId}`)
+            this.getDoKnotsWithStreaks()
+            return deleted
+        }
     },
     mounted() {
         this.getDoKnotsWithStreaks()
