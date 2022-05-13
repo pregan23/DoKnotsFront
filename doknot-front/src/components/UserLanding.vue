@@ -6,12 +6,12 @@
             <div :key="doKnot.id" v-for="doKnot in doKnotsWithStreaks">
                 <h3>Have you been {{ doKnot.habit }}?</h3>
                 <!-- <h4>{{ doKnot.alternatives }}</h4> -->
-                <div id="streak" :key="streak.id" v-for="streak in doKnot.Streaks">
-                    <h3>{{ streak.howLong }} Day</h3>
+                <div  id="streak" :key="streak.id" v-for="streak in doKnot.Streaks">
+                    <h3 v-if="streak.isActive">{{ streak.howLong }} Day</h3>
                     <h4 v-if="streak.isActive">Ongoing</h4>
-                    <button v-if="streak.isActive">Staying Strong!</button>
+                    <button v-if="streak.isActive" @click="updateStreak(streak.id, streak.howLong)">Staying Strong!</button>
                     <button v-if="streak.isActive">Temporary Setback</button>
-                    <h4 v-else>Last updated {{ streak.updatedAt }}</h4>
+                    <h4 v-if="streak.isActive">Last updated {{ streak.updatedAt }}</h4>
                 </div>
             </div>
         </div>
@@ -52,7 +52,21 @@ export default {
             } catch (error) {
     console.log('something is wrong')
   }
-        } 
+        },
+        
+        async updateStreak(streakId, streakLength) {
+            try {
+                streakLength+=1
+                let putBody = {
+                    "howLong":`${streakLength}`
+                }
+                const res = await Client.put(`/streak/${streakId}`, putBody )
+                console.log(res.data)
+                this.getDoKnotsWithStreaks()
+            } catch (error) {
+    console.log('something is wrong')
+  }
+        }
     },
     mounted() {
         this.getDoKnotsWithStreaks()
