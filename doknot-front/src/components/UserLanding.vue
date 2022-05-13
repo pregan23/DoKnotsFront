@@ -4,7 +4,7 @@
             <h2>Here's what you've been working on lately</h2>
             <button @click="toggleNewDoKnot">Add DoKnot</button>
             <div class="newDoKnot">
-                <DoKnotForm v-if="newDoKnot" @getDoKnotsWithStreaks="getDoKnotsWithStreaks"/>
+                <DoKnotForm v-if="newDoKnot" @newStreak="newStreak" @getDoKnotsWithStreaks="getDoKnotsWithStreaks" :currentUserId="currentUserId"/>
             </div>
             <div :key="doKnot.id" v-for="doKnot in doKnotsWithStreaks">
                 <h3>Have you been {{ doKnot.habit }}?</h3>

@@ -21,18 +21,26 @@ export default {
     }),
     props: {
         currentUserId: { type:Number },
-        getDoKnotswithStreaks: { type:Function }
+        getDoKnotswithStreaks: { type:Function },
+        newStreak: { type:Function }
     },
     methods: {
         async createDoKnot() {
             try {
+                let id = parseInt(this.currentUserId)
+                let altArray = this.userAlts.split(', ')
                 let doKnotBody = {
                     "habit":`${this.userHabit}`,
-                    "alternatives":[this.userAlts],
+                    "alternatives":altArray,
                     "share":this.share
                 }
-                const res = await Client.post(`/doknot/${this.currentUserId}/new`, doKnotBody)
-                this.$emit('getDoKnotsWithStreaks')
+                console.log(id)
+                const res = await Client.post(`/doknot/${id}/new`, doKnotBody)
+                this.$emit(`newStreak`, res.data.id)
+                this.$emit('getDoKnotsWithStreaks')                
+                this.userHabit='',
+                this.userAlts=[],
+                this.share=false
                 return res.data
             } catch (error) {
     console.log('something is wrong')
