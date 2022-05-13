@@ -2,6 +2,7 @@
   <div id="app">
     <div class="hastoken" v-if="authenticated">
       <h1>Welcome In, Sheeeeeeeesh</h1>
+        
       <UserLanding :currentUserId="currentUserId"/>
     </div>
 
@@ -24,6 +25,7 @@ import LoginUser from './components/LoginUser.vue'
 // import axios from 'axios'
 import Client from './services/api'
 import UserLanding from './components/UserLanding.vue'
+
 
 
 export default {
@@ -67,6 +69,8 @@ export default {
 </script>
 
 <style>
+
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -74,5 +78,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  
+
 }
 </style>
