@@ -7,15 +7,17 @@
                 <DoKnotForm v-if="newDoKnot" @newStreak="newStreak" @getDoKnotsWithStreaks="getDoKnotsWithStreaks" :currentUserId="currentUserId"/>
             </div>
             <div :key="doKnot.id" v-for="doKnot in doKnotsWithStreaks">
-                <h3>Have you been {{ doKnot.habit }}?</h3>
-                <button @click="deleteDoKnot(doKnot.id)">Delete</button>
-                <!-- <h4>{{ doKnot.alternatives }}</h4> -->
-                <div  id="streak" :key="streak.id" v-for="streak in doKnot.Streaks">
-                    <h3 v-if="streak.isActive">{{ streak.howLong }} Day Streak</h3>
-                    <h4 v-if="streak.isActive">Ongoing</h4>
-                    <button v-if="streak.isActive" @click="updateStreak(streak.id, streak.howLong)">Staying Strong!</button>
-                    <button v-if="streak.isActive" @click="endStreak(streak)">Temporary Setback</button>
-                    <h4 v-if="streak.isActive">Last updated {{ streak.updatedAt }}</h4>
+                <div id="doknot">
+                    <h3>Have you been {{ doKnot.habit }}?</h3>
+                    <button id="delete" @click="deleteDoKnot(doKnot.id)">Delete</button>
+                    <!-- <h4>{{ doKnot.alternatives }}</h4> -->
+                    <div  id="streak" :key="streak.id" v-for="streak in doKnot.Streaks">
+                        <h3 v-if="streak.isActive">{{ streak.howLong }} Day Streak</h3>
+                        <h4 v-if="streak.isActive">Ongoing</h4>
+                        <button v-if="streak.isActive" @click="updateStreak(streak.id, streak.howLong)">Staying Strong!</button>
+                        <button v-if="streak.isActive" @click="endStreak(streak)">Temporary Setback</button>
+                        <h4 v-if="streak.isActive">Last updated {{ streak.updatedAt }}</h4>
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,6 +132,8 @@ export default {
 
 <style>
     #streak {
+        text-align: center;
+        width:50%;
         border-style: groove;
         border-color: rgb(165, 128, 206);
         border-radius: 25px;
@@ -147,4 +151,17 @@ export default {
         margin:10px;
         color: rgb(165, 128, 206);
     }
+    /* #delete {
+        align-self: ;
+    } */
+    #doknot {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        
+        
+    }
+    /* #streak {
+        float: right;
+    } */
 </style>
