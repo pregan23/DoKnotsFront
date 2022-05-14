@@ -3,8 +3,9 @@
         <form @submit.prevent="newEntry()">
             <h1>Hello!?</h1>
             <input placeholder="Your Entry Here" v-model="userContent"/>
+            <h6>Check box to share with others</h6>
             <input type="checkbox" v-model="share" />
-            <button type="submit"></button>
+            <button type="submit">Submit</button>
         </form>
     </div>
   

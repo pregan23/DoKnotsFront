@@ -28,6 +28,7 @@
             <div>
                 <div id="entry" :key="entry.id" v-for="entry in userEntries">
                     <h3>{{ entry.content }}</h3>
+                    <button @click="deleteEntry(entry.id)">Delete</button>
                     
                 </div>
             </div>
@@ -56,6 +57,17 @@ export default {
         newEntry:false
     }),
     methods: {
+        
+        async deleteEntry(id) {
+            try {
+                const deleted = await Client.delete(`/entry/${this.currentUserId}/delete/${id}`)
+                this.getUserEntries()
+                return deleted.data
+            } catch (error) {
+    console.log('something is wrong')
+  }
+        },
+
         async toggleNewEntry() {
             if(this.newEntry) {
                 this.newEntry = false
