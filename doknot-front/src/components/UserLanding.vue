@@ -13,12 +13,14 @@
                             <h3>Have you been {{ doKnot.habit }}?</h3>
                             <button id="delete" @click="deleteDoKnot(doKnot.id)">Delete</button>
                             <!-- <h4>{{ doKnot.alternatives }}</h4> -->
-                            <div  id="streak" :key="streak.id" v-for="streak in doKnot.Streaks">
-                                <h3 v-if="streak.isActive">{{ streak.howLong }} Day Streak</h3>
-                                <h4 v-if="streak.isActive">Ongoing</h4>
-                                <button v-if="streak.isActive" @click="updateStreak(streak.id, streak.howLong)">Staying Strong!</button>
-                                <button v-if="streak.isActive" @click="endStreak(streak)">Temporary Setback</button>
-                                <h4 v-if="streak.isActive">Last updated {{ streak.updatedAt }}</h4>
+                            <div   :key="streak.id" v-for="streak in doKnot.Streaks">
+                                <div id="streak" v-if="streak.isActive">
+                                    <h3 >{{ streak.howLong }} Day Streak</h3>
+                                    <h4>Ongoing</h4>
+                                    <button  @click="updateStreak(streak.id, streak.howLong)">Staying Strong!</button>
+                                    <button  @click="endStreak(streak)">Temporary Setback</button>
+                                    <h4 >Last updated {{ streak.updatedAt }}</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
