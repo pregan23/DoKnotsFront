@@ -3,7 +3,7 @@
         <div v-if="doKnotsWithStreaks" id="doknot">
             <!-- <h2>Here's what you've been working on lately</h2> -->
             
-            <h2 @click="toggleMyDoKnots">My DoKnots +</h2>
+            <h2 class="sechead" @click="toggleMyDoKnots">My DoKnots +</h2>
             <div class="newDoKnot">
                 <DoKnotForm v-if="newDoKnot" @newStreak="newStreak" @getDoKnotsWithStreaks="getDoKnotsWithStreaks" :currentUserId="currentUserId"/>
             </div>
@@ -28,7 +28,7 @@
                 </div>
             </div>
         <div v-if="userEntries">
-            <h2 @click="toggleMyEntries()">My Entries</h2>
+            <h2 class="sechead" @click="toggleMyEntries()">My Entries</h2>
             <div v-if="myEntries">
             <button @click="toggleNewEntry()">New Entry</button>
                     <EntryForm v-if="newEntry" :currentUserId="currentUserId" @getUserEntries="getUserEntries" />
@@ -222,6 +222,11 @@ export default {
         justify-content: center;
         
         
+    }
+    .sechead {
+        border-style: double;
+        
+        border-color: cadetblue;
     }
     /* #streak {
         float: right;
