@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import Client from '../services/api'
 export default {
    name:'RegisterUser',
    data: ()=>({
@@ -19,7 +19,7 @@ export default {
    }),
    methods: {
        async registerUser() {
-           const res = await axios.post('http://localhost:3001/user/new', {
+           const res = await Client.post('/user/new', {
                "userName":this.userNameInput,
                "password":this.passwordInput
            })
