@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const BASE_URL = 'http://localhost:3001'
+export const BASE_URL = 'https://doknot-back.herokuapp.com'
 
 const Client = axios.create({ baseURL: BASE_URL })
 

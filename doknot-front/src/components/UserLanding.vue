@@ -2,10 +2,11 @@
     <div>
         <div v-if="doKnotsWithStreaks" id="doknot">
             <!-- <h2>Here's what you've been working on lately</h2> -->
+            
+            <h2 @click="toggleMyDoKnots">My DoKnots +</h2>
             <div class="newDoKnot">
                 <DoKnotForm v-if="newDoKnot" @newStreak="newStreak" @getDoKnotsWithStreaks="getDoKnotsWithStreaks" :currentUserId="currentUserId"/>
             </div>
-            <h2 @click="toggleMyDoKnots">My DoKnots +</h2>
             <div v-if="myDoKnots">
                 <button @click="toggleNewDoKnot">Add DoKnot</button>
                     <div :key="doKnot.id" v-for="doKnot in doKnotsWithStreaks">
