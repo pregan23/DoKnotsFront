@@ -23,8 +23,13 @@
         </div>
         <div v-if="userEntries">
             <h2>Your Entries</h2>
-            <div id="entry" :key="entry.id" v-for="entry in userEntries">
-                <h3>{{ entry.content }}</h3>
+            <button @click="toggleNewEntry()">New Entry</button>
+                    <EntryForm v-if="newEntry" :currentUserId="currentUserId" @getUserEntries="getUserEntries" />
+            <div>
+                <div id="entry" :key="entry.id" v-for="entry in userEntries">
+                    <h3>{{ entry.content }}</h3>
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -33,19 +38,33 @@
 <script>
 import Client from "@/services/api"
 import DoKnotForm from './DoKnotForm.vue'
+import EntryForm from "./EntryForm.vue"
+
 export default {
     name: 'UserLanding',
     components: {
-        DoKnotForm
-    },
+    DoKnotForm,
+    
+    EntryForm
+},
     data:()=>({
         doKnotsWithStreaks:null,
         userEntries:null,
         sharedStreaks:null,
         sharedEntries:null,
-        newDoKnot:false
+        newDoKnot:false,
+        newEntry:false
     }),
     methods: {
+        async toggleNewEntry() {
+            if(this.newEntry) {
+                this.newEntry = false
+            }
+            else {
+                this.newEntry = true
+            }
+        },
+
         async toggleNewDoKnot() {
             if(this.newDoKnot) {
                 this.newDoKnot = false
@@ -115,7 +134,8 @@ export default {
             const deleted = await Client.delete(`/doknot/${this.currentUserId}/delete/${doKnotId}`)
             this.getDoKnotsWithStreaks()
             return deleted
-        }
+        },
+        
     },
     mounted() {
         this.getDoKnotsWithStreaks()
@@ -134,6 +154,8 @@ export default {
     #streak {
         text-align: center;
         width:50%;
+        border-left: 5px;
+        border-right: 5px;
         border-style: groove;
         border-color: rgb(165, 128, 206);
         border-radius: 25px;
@@ -144,7 +166,7 @@ export default {
         margin:2.5px
     }
     #entry {
-        border-style: groove;
+        border-style:groove;
         border-color: rgb(165, 128, 206);
         background-color: rgb(51, 51, 124);
         border-radius: 25px;
