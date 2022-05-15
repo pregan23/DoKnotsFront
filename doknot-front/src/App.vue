@@ -82,8 +82,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #ed8728;
-  margin: 13px;
-  background-color: rgb(121, 26, 142);
+  margin: 1px;
+  background-color: rgb(125, 53, 141);
   border: solid 3px rgb(214, 93, 196);
   
   min-height: 550px;

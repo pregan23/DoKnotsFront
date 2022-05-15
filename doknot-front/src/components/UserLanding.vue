@@ -2,7 +2,7 @@
     <div>
         <h2>Welcome {{ currentUserName }}</h2>
         <!-- <img src={{ currentUserAvatar }} alt="Avatar" /> -->
-        <div v-if="doKnotsWithStreaks" id="doknot">
+        <div >
             <!-- <h2>Here's what you've been working on lately</h2> -->
             
             <h2 class="sechead" @click="toggleMyDoKnots">My DoKnots +</h2>
@@ -46,6 +46,19 @@
         <div>
             <h2 class="sechead" @click="toggleShared()">The Feed</h2>
             <div v-if="shared">
+                <div :key="doKnot.id" v-for="doKnot in sharedDoKnotsWithStreaks">
+                    <div id="doknot">
+                                <h3>Someone is trying not to {{ doKnot.habit }}?</h3>
+                                <!-- <h4>{{ doKnot.alternatives }}</h4> -->
+                                <div   :key="streak.id" v-for="streak in doKnot.Streaks">
+                                    <div id="streak" v-if="streak.isActive">
+                                        <h3 >{{ streak.howLong }} Day Streak</h3>
+                                        <h4>Ongoing</h4>
+                                        <h4 >Last updated {{ streak.updatedAt }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
                 <div id="entry" :key="entry.id" v-for="entry in sharedEntries">
                     <h3>{{ entry.content }}</h3>
             </div>
@@ -151,6 +164,15 @@ export default {
   }
         },
 
+        async getSharedDoKnotsWithStreaks() {
+            try {
+                const res = await Client.get('/doknot/feed')
+                this.sharedDoKnotsWithStreaks = res.data
+            } catch (error) {
+    console.log('something is wrong')
+  }
+        },
+
         async getSharedEntries() {
             try {
                 const res = await Client.get(`/entry/feed`)
@@ -217,7 +239,7 @@ export default {
     mounted() {
         this.getDoKnotsWithStreaks()
         this.getUserEntries(),
-        // getSharedStreaks(),
+        this.getSharedDoKnotsWithStreaks(),
         this.getSharedEntries()
     },
     
