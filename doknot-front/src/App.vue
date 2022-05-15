@@ -72,15 +72,18 @@ export default {
 
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #33699f;
+  color: #ed8728;
   margin: 13px;
-  background-color: rgb(203, 212, 121);
+  background-color: rgb(121, 26, 142);
   border: solid 3px rgb(214, 93, 196);
   
   min-height: 550px;
