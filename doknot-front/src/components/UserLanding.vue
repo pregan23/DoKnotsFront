@@ -5,21 +5,21 @@
         <div >
             <!-- <h2>Here's what you've been working on lately</h2> -->
             
-            <h2 class="sechead" @click="toggleMyDoKnots">My DoKnots +</h2>
+            <h2 class="sechead" @click="toggleMyDoKnots()">My DoKnots +</h2>
             <div class="newDoKnot">
                 <DoKnotForm v-if="newDoKnot" @newStreak="newStreak" @getDoKnotsWithStreaks="getDoKnotsWithStreaks" :currentUserId="currentUserId"/>
             </div>
             <div v-if="myDoKnots">
-                <button @click="toggleNewDoKnot">Add DoKnot</button>
+                <button @click="toggleNewDoKnot()">DoKnot Form</button>
                     <div :key="doKnot.id" v-for="doKnot in doKnotsWithStreaks">
                         <div id="doknot">
-                            <h3>Have you been {{ doKnot.habit }}?</h3>
+                            <h3 id="habit">Have you been {{ doKnot.habit }}?</h3>
                         
                                         
                                     
                             <button id="delete" @click="deleteDoKnot(doKnot.id)">Delete</button>
                             <br />
-                            <h4>{{ pickAlt(doKnot.alternatives) }}</h4>
+                            
                             <!-- <h4>{{ doKnot.alternatives }}</h4> -->
                             <div   :key="streak.id" v-for="streak in doKnot.Streaks">
                                 <div id="streak" v-if="streak.isActive">
@@ -31,7 +31,9 @@
                                     
                                     
                                 </div>
+                                
                             </div>
+                            <h4 id="sugg">Maybe this will help: {{ pickAlt(doKnot.alternatives) }} </h4>
                         </div>
                     </div>
                 </div>
@@ -99,19 +101,11 @@ export default {
         myEntries:false,
         shared:false,
         date:'',
-        altSuggestion:'',
-        needHelp: false
+        altSuggestion:''
     }),
     methods: {
 
-        toggleHelp() {
-            if(this.needHelp) {
-                this.needHelp = false
-            }
-            else {
-                this.needHelp = true
-            }
-        },
+     
 
         pickAlt(arr) {
             this.altSuggestion = arr[Math.floor(Math.random() * arr.length)]
@@ -140,9 +134,9 @@ export default {
         toggleMyEntries() {
             if(this.myEntries) {
                 this.myEntries = false
-                if(this.newEntry) {
+                
                     this.newEntry = false
-                }
+                
             }
             else {
                 this.myEntries = true
@@ -153,9 +147,9 @@ export default {
             if(this.myDoKnots) {
                 this.myDoKnots = false
                
-                if(this.newDoKnot) {
+                
                     this.newDoKnot = false
-                }
+                
             }
             else {
                 this.myDoKnots = true
@@ -258,13 +252,11 @@ export default {
   }
         },
         async newStreak(doKnotId) {
-            try {
+            
                 const res = await Client.post(`/streak/${this.currentUserId}/${doKnotId}`)
                 this.getDoKnotsWithStreaks()
                 return res.data
-            } catch (error) {
-    console.log('something is wrong')
-  }
+             
         },
         async deleteDoKnot(doKnotId) {
             const deleted = await Client.delete(`/doknot/${this.currentUserId}/delete/${doKnotId}`)
@@ -289,6 +281,24 @@ export default {
 </script>
 
 <style>
+#habit {
+    border-top:solid gold 1.5px
+}
+
+#sugg {
+    border-bottom:solid gold 1.5px
+}
+
+button {
+  transition-duration: 0.4s;
+  border-radius:10em
+}
+
+button:hover {
+  background-color: gold; 
+  color: grey;
+}
+
     #streak {
         text-align: center;
         width:300px;
@@ -329,6 +339,12 @@ export default {
         border-style: double;
         
         border-color: cadetblue;
+    }
+
+    #delete {
+        align-content: center;
+        justify-self: center;
+        height:25px
     }
     /* #streak {
         float: right;

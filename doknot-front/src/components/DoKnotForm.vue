@@ -36,8 +36,7 @@ export default {
                 }
                 console.log(id)
                 const res = await Client.post(`/doknot/${id}/new`, doKnotBody)
-                this.$emit(`newStreak`, res.data.id)
-                this.$emit('getDoKnotsWithStreaks')                
+                this.$emit(`newStreak`, res.data.id)                
                 this.userHabit='',
                 this.userAlts=[],
                 this.share=false

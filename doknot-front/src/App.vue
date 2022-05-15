@@ -76,6 +76,10 @@ export default {
 
 
 #app {
+
+  display: flex;
+  align-content: center;
+  position: relative;
   
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -85,8 +89,8 @@ export default {
   margin: 1px;
   background-color: rgb(71, 18, 83);
   border: solid 3px rgb(214, 93, 196);
-  
-  min-height: 550px;
+  height:auto;
+  min-height: 800px;
   
   
 

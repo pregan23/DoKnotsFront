@@ -3,7 +3,7 @@
     <h3>Register Here</h3>
     <form class="regform" @submit.prevent="registerUser">
         <input placeholder='Username' v-model="userNameInput"/>
-        <input placeholder="Password" v-model="passwordInput"/>
+        <input placeholder="Password" type="password" v-model="passwordInput"/>
         <button type="submit">Register</button>
     </form>
 </div>
