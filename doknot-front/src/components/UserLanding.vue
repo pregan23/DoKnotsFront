@@ -14,7 +14,12 @@
                     <div :key="doKnot.id" v-for="doKnot in doKnotsWithStreaks">
                         <div id="doknot">
                             <h3>Have you been {{ doKnot.habit }}?</h3>
+                        
+                                        
+                                    
                             <button id="delete" @click="deleteDoKnot(doKnot.id)">Delete</button>
+                            <br />
+                            <h4>{{ pickAlt(doKnot.alternatives) }}</h4>
                             <!-- <h4>{{ doKnot.alternatives }}</h4> -->
                             <div   :key="streak.id" v-for="streak in doKnot.Streaks">
                                 <div id="streak" v-if="streak.isActive">
@@ -22,7 +27,9 @@
                                     <h4>Ongoing</h4>
                                     <button  @click="updateStreak(streak.id, streak.howLong)">Staying Strong!</button>
                                     <button  @click="endStreak(streak)">Temporary Setback</button>
-                                    <h4 >Last updated {{ streak.updatedAt }}</h4>
+                                    <h4 >Last updated {{ getDate(streak.updatedAt) }}</h4>
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -37,6 +44,7 @@
             <div>
                 <div id="entry" :key="entry.id" v-for="entry in userEntries">
                     <h3>{{ entry.content }}</h3>
+                    <h4>{{ getDate(entry.updatedAt) }}</h4>
                     <button @click="deleteEntry(entry.id)">Delete</button>
                     
                 </div>
@@ -46,21 +54,22 @@
         <div>
             <h2 class="sechead" @click="toggleShared()">The Feed</h2>
             <div v-if="shared">
-                <div :key="doKnot.id" v-for="doKnot in sharedDoKnotsWithStreaks">
+                <div :key="doKnot.id" v-for="doKnot in sharedDoKnotsWithStreaks.slice(0, 5)">
                     <div id="doknot">
-                                <h3>Someone is trying not to {{ doKnot.habit }}?</h3>
+                                <h3>{{ doKnot.habit }}?</h3>
                                 <!-- <h4>{{ doKnot.alternatives }}</h4> -->
                                 <div   :key="streak.id" v-for="streak in doKnot.Streaks">
                                     <div id="streak" v-if="streak.isActive">
                                         <h3 >{{ streak.howLong }} Day Streak</h3>
                                         <h4>Ongoing</h4>
-                                        <h4 >Last updated {{ streak.updatedAt }}</h4>
+                                        <h4 >Last updated {{ getDate(streak.updatedAt) }}</h4>
                                     </div>
                                 </div>
                             </div>
                     </div>
-                <div id="entry" :key="entry.id" v-for="entry in sharedEntries">
+                <div id="entry" :key="entry.id" v-for="entry in sharedEntries.slice(0, 5)">
                     <h3>{{ entry.content }}</h3>
+                    <h4>{{ getDate(entry.updatedAt) }}</h4>
             </div>
         </div>
     </div>
@@ -88,11 +97,38 @@ export default {
         newEntry:false,
         myDoKnots:false,
         myEntries:false,
-        shared:false
+        shared:false,
+        date:'',
+        altSuggestion:'',
+        needHelp: false
     }),
     methods: {
 
-        async toggleShared() {
+        toggleHelp() {
+            if(this.needHelp) {
+                this.needHelp = false
+            }
+            else {
+                this.needHelp = true
+            }
+        },
+
+        pickAlt(arr) {
+            this.altSuggestion = arr[Math.floor(Math.random() * arr.length)]
+            console.log(this.altSuggestion)
+            return this.altSuggestion
+        },
+
+        getDate(stamp) {
+            let string = stamp.toString()
+            console.log(string)
+            let temp = string.split("T")
+            this.date =temp[0]
+            console.log(this.date)
+            return this.date
+        },
+
+        toggleShared() {
             if(this.shared) {
                 this.shared = false
             }
@@ -101,7 +137,7 @@ export default {
             }
         },
 
-        async toggleMyEntries() {
+        toggleMyEntries() {
             if(this.myEntries) {
                 this.myEntries = false
                 if(this.newEntry) {
@@ -113,9 +149,10 @@ export default {
             }
         },
 
-        async toggleMyDoKnots() {
+        toggleMyDoKnots() {
             if(this.myDoKnots) {
                 this.myDoKnots = false
+               
                 if(this.newDoKnot) {
                     this.newDoKnot = false
                 }
@@ -136,7 +173,7 @@ export default {
   }
         },
 
-        async toggleNewEntry() {
+        toggleNewEntry() {
             if(this.newEntry) {
                 this.newEntry = false
             }
@@ -145,7 +182,7 @@ export default {
             }
         },
 
-        async toggleNewDoKnot() {
+        toggleNewDoKnot() {
             if(this.newDoKnot) {
                 this.newDoKnot = false
             }
@@ -260,6 +297,9 @@ export default {
         border-style: groove;
         border-color: rgb(165, 128, 206);
         border-radius: 25px;
+        color:rgb(51, 51, 124);
+        font-weight:900;
+        
         margin:10px;
         background-color: rgb(140, 201, 201);
     }
@@ -273,6 +313,7 @@ export default {
         border-radius: 25px;
         margin:10px;
         color: rgb(165, 128, 206);
+        
     }
     /* #delete {
         align-self: ;

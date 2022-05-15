@@ -83,7 +83,7 @@ export default {
   text-align: center;
   color: #ed8728;
   margin: 1px;
-  background-color: rgb(125, 53, 141);
+  background-color: rgb(71, 18, 83);
   border: solid 3px rgb(214, 93, 196);
   
   min-height: 550px;
