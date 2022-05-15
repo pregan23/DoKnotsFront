@@ -29,6 +29,9 @@ export default {
                 }
                 const entry = await Client.post(`/entry/${this.currentUserId}/new`, entryBody)
                 this.$emit('getUserEntries')
+                if(this.share) {
+                    this.$emit('getSharedEntries')
+                }
                 this.userContent = ''
                 return entry.data
             }  catch (error) {

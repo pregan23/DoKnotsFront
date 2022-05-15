@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="hastoken" v-if="authenticated">
-      <h1>Welcome In, Sheeeeeeeesh</h1>
+      <h1>What you Do is just as important as what you DoKnot</h1>
         
-      <UserLanding :currentUserId="currentUserId"/>
+      <UserLanding :currentUserId="currentUserId"  :currentUserName="currentUserName" />
     </div>
 
     <div class="notoken" v-else>
@@ -39,7 +39,8 @@ export default {
   data:()=>({
     authenticated:false,
     currentUserName:'',
-    currentUserId:null
+    currentUserId:null,
+    currentUserAvatar: ''
   }),
   mounted() {
     const token = localStorage.getItem('token')
@@ -58,6 +59,7 @@ export default {
     this.authenticated = true
     this.currentUserName = res.data.userName
     this.currentUserId = res.data.id
+    // this.currentUserAvatar = toString(res.data.avatar)
     return res.data
       
   } catch (error) {
@@ -76,9 +78,15 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #33699f;
+  margin: 13px;
+  background-color: rgb(203, 212, 121);
+  border: solid 3px rgb(214, 93, 196);
+  
+  min-height: 550px;
+  
   
 
 }
+
 </style>

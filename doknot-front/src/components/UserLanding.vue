@@ -1,5 +1,7 @@
 <template>
     <div>
+        <h2>Welcome {{ currentUserName }}</h2>
+        <!-- <img src={{ currentUserAvatar }} alt="Avatar" /> -->
         <div v-if="doKnotsWithStreaks" id="doknot">
             <!-- <h2>Here's what you've been working on lately</h2> -->
             
@@ -27,11 +29,11 @@
                     </div>
                 </div>
             </div>
-        <div v-if="userEntries">
+        <div>
             <h2 class="sechead" @click="toggleMyEntries()">My Entries</h2>
             <div v-if="myEntries">
             <button @click="toggleNewEntry()">New Entry</button>
-                    <EntryForm v-if="newEntry" :currentUserId="currentUserId" @getUserEntries="getUserEntries" />
+                    <EntryForm v-if="newEntry" :currentUserId="currentUserId" @getUserEntries="getUserEntries" @getSharedEntries="getSharedEntries" />
             <div>
                 <div id="entry" :key="entry.id" v-for="entry in userEntries">
                     <h3>{{ entry.content }}</h3>
@@ -41,6 +43,14 @@
             </div>
             </div>
         </div>
+        <div>
+            <h2 class="sechead" @click="toggleShared()">The Feed</h2>
+            <div v-if="shared">
+                <div id="entry" :key="entry.id" v-for="entry in sharedEntries">
+                    <h3>{{ entry.content }}</h3>
+            </div>
+        </div>
+    </div>
     </div>
 </template>
 
@@ -59,18 +69,31 @@ export default {
     data:()=>({
         doKnotsWithStreaks:null,
         userEntries:null,
-        sharedStreaks:null,
+        sharedDoKnotsWithStreaks:null,
         sharedEntries:null,
         newDoKnot:false,
         newEntry:false,
         myDoKnots:false,
-        myEntries:false
+        myEntries:false,
+        shared:false
     }),
     methods: {
+
+        async toggleShared() {
+            if(this.shared) {
+                this.shared = false
+            }
+            else{
+                this.shared = true
+            }
+        },
 
         async toggleMyEntries() {
             if(this.myEntries) {
                 this.myEntries = false
+                if(this.newEntry) {
+                    this.newEntry = false
+                }
             }
             else {
                 this.myEntries = true
@@ -80,9 +103,13 @@ export default {
         async toggleMyDoKnots() {
             if(this.myDoKnots) {
                 this.myDoKnots = false
+                if(this.newDoKnot) {
+                    this.newDoKnot = false
+                }
             }
             else {
                 this.myDoKnots = true
+                
             }
         },
         
@@ -123,6 +150,16 @@ export default {
     console.log('something is wrong')
   }
         },
+
+        async getSharedEntries() {
+            try {
+                const res = await Client.get(`/entry/feed`)
+                this.sharedEntries = res.data
+            } catch (error) {
+            console.log('something is wrong')
+            }
+        },
+
         async getUserEntries() {
             try {
                 const res = await Client.get(`/entry/${this.currentUserId}`)
@@ -179,13 +216,15 @@ export default {
     },
     mounted() {
         this.getDoKnotsWithStreaks()
-        this.getUserEntries()
+        this.getUserEntries(),
         // getSharedStreaks(),
-        // getSharedEntries()
+        this.getSharedEntries()
     },
     
     props: {
-        currentUserId: { type:Number }
+        currentUserId: { type:Number },
+        currentUserAvatar: { type:String },
+        currentUserName: { type: String }
     }
 }
 </script>
@@ -193,7 +232,7 @@ export default {
 <style>
     #streak {
         text-align: center;
-        width:50%;
+        width:300px;
         border-left: 5px;
         border-right: 5px;
         border-style: groove;
