@@ -5,7 +5,7 @@
         <div >
             <!-- <h2>Here's what you've been working on lately</h2> -->
             
-            <h2 class="sechead" @click="toggleMyDoKnots()">My DoKnots +</h2>
+            <h2 class="sechead" @click="toggleMyDoKnots()">My DoKnots</h2>
             <div class="newDoKnot">
                 <DoKnotForm v-if="newDoKnot" @newStreak="newStreak" @getDoKnotsWithStreaks="getDoKnotsWithStreaks" :currentUserId="currentUserId"/>
             </div>
@@ -13,7 +13,7 @@
                 <button @click="toggleNewDoKnot()">DoKnot Form</button>
                     <div :key="doKnot.id" v-for="doKnot in doKnotsWithStreaks">
                         <div id="doknot">
-                            <h3 id="habit">Have you been {{ doKnot.habit }}?</h3>
+                            <h2 id="habit">Have you been {{ doKnot.habit }}?</h2>
                         
                                         
                                     
@@ -58,7 +58,7 @@
             <div v-if="shared">
                 <div :key="doKnot.id" v-for="doKnot in sharedDoKnotsWithStreaks.slice(0, 5)">
                     <div id="doknot">
-                                <h3>{{ doKnot.habit }}?</h3>
+                                <h3 id="habit">{{ doKnot.habit }}?</h3>
                                 <!-- <h4>{{ doKnot.alternatives }}</h4> -->
                                 <div   :key="streak.id" v-for="streak in doKnot.Streaks">
                                     <div id="streak" v-if="streak.isActive">

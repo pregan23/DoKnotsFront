@@ -89,8 +89,8 @@ export default {
   margin: 1px;
   background-color: rgb(71, 18, 83);
   border: solid 3px rgb(214, 93, 196);
-  height:auto;
-  min-height: 800px;
+  height:100%;
+  min-height: 883px;
   
   
 
