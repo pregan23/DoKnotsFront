@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="hastoken" v-if="authenticated">
+      <button @click="logoutUser()">Log Out</button>
       <h1>What you Do is just as important as what you DoKnot</h1>
         
       <UserLanding :currentUserId="currentUserId"  :currentUserName="currentUserName" />
@@ -50,6 +51,16 @@ export default {
     // this.checkSession() 
   },
   methods: {
+    logoutUser() {
+      this.currentUserName = ''
+      this.currentUserId = null
+      this.currentUserAvatar = ''
+      this.authenticated = false
+      localStorage.clear()
+      this.checkSession()
+    },
+
+
     async checkSession() {
        try {
     
