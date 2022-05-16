@@ -7,7 +7,7 @@
             
             <h2 class="sechead" @click="toggleMyDoKnots()">My DoKnots</h2>
             <div class="newDoKnot">
-                <DoKnotForm v-if="newDoKnot" @newStreak="newStreak" @getDoKnotsWithStreaks="getDoKnotsWithStreaks" :currentUserId="currentUserId"/>
+                <DoKnotForm v-if="newDoKnot" @newStreak="newStreak" @getDoKnotsWithStreaks="getDoKnotsWithStreaks" @getSharedDoKnotsWithStreaks="getSharedDoKnotsWithStreaks" :currentUserId="currentUserId"/>
             </div>
             <div v-if="myDoKnots">
                 <button @click="toggleNewDoKnot()">DoKnot Form</button>
@@ -41,7 +41,7 @@
         <div>
             <h2 class="sechead" @click="toggleMyEntries()">My Entries</h2>
             <div v-if="myEntries">
-            <button @click="toggleNewEntry()">New Entry</button>
+            <button @click="toggleNewEntry()">Entry Form</button>
                     <EntryForm v-if="newEntry" :currentUserId="currentUserId" @getUserEntries="getUserEntries" @getSharedEntries="getSharedEntries" />
             <div>
                 <div id="entry" :key="entry.id" v-for="entry in userEntries">
@@ -282,21 +282,24 @@ export default {
 
 <style>
 #habit {
-    border-top:solid gold 1.5px
+    border-top:solid rgb(125,195,176) 3px;
+    
 }
 
 #sugg {
-    border-bottom:solid gold 1.5px
+    border-bottom:solid 2px;
+    border-color:rgb(125,195,176)
 }
 
 button {
   transition-duration: 0.4s;
-  border-radius:10em
+  border-radius:10em;
+  background-color: rgb(235,245,235);
 }
 
 button:hover {
-  background-color: gold; 
-  color: grey;
+  background-color: rgb(125,195,176); 
+  
 }
 
     #streak {
@@ -305,24 +308,24 @@ button:hover {
         border-left: 5px;
         border-right: 5px;
         border-style: groove;
-        border-color: rgb(165, 128, 206);
+        border-color: rgb(170,240,209);
         border-radius: 25px;
-        color:rgb(51, 51, 124);
+        /* color:rgb(51, 51, 124); */
         font-weight:900;
         
         margin:10px;
-        background-color: rgb(140, 201, 201);
+        background-color: rgb(210,205,228);
     }
     button {
         margin:2.5px
     }
     #entry {
         border-style:groove;
-        border-color: rgb(165, 128, 206);
-        background-color: rgb(51, 51, 124);
+        border-color: rgb(170,240,209);
+        background-color: rgb(235,245,235);
         border-radius: 25px;
         margin:10px;
-        color: rgb(165, 128, 206);
+        /* color: rgb(165, 128, 206); */
         
     }
     /* #delete {

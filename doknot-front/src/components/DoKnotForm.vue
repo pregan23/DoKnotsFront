@@ -22,7 +22,8 @@ export default {
     props: {
         currentUserId: { type:Number },
         getDoKnotswithStreaks: { type:Function },
-        newStreak: { type:Function }
+        newStreak: { type:Function },
+        getSharedDoKnotsWithStreaks: { type: Function }
     },
     methods: {
         async createDoKnot() {
@@ -33,6 +34,9 @@ export default {
                     "habit":`${this.userHabit}`,
                     "alternatives":altArray,
                     "share":this.share
+                }
+                if(this.share) {
+                    this.$emit('getSharedDoKnotsWithStreaks')
                 }
                 console.log(id)
                 const res = await Client.post(`/doknot/${id}/new`, doKnotBody)

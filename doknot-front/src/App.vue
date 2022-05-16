@@ -96,12 +96,13 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #ed8728;
+  /* color: #ed8728; */
   margin: 1px;
-  background-color: rgb(71, 18, 83);
-  border: solid 3px rgb(214, 93, 196);
+  background-color: rgb(204,179,219);
+  border: solid 3px rgb(125,195,176);
   height:100%;
   min-height: 883px;
+  
   
   
 

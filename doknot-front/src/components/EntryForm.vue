@@ -1,8 +1,8 @@
 <template>
     <div>
         <form @submit.prevent="newEntry()">
-            <h1>Hello!?</h1>
-            <input placeholder="Your Entry Here" v-model="userContent"/>
+            <h5>Journaling can help us to be more deliberate and mindful of our actions.  This is a space to chronicle your journey and share it with others if you so choose.</h5>
+            <input id="userEntryBox" placeholder="Your Entry Here" v-model="userContent"/>
             <h6>Check box to share with others</h6>
             <input type="checkbox" v-model="share" />
             <button type="submit">Submit</button>
@@ -49,5 +49,10 @@ export default {
 </script>
 
 <style>
+#userEntryBox {
+    width:300px;
+    height:200px;
+    text-align: center;
+}
 
 </style>
